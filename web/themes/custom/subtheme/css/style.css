@@ -1,0 +1,12 @@
+/**
+ * If using a CSS pre-processor, tell it to overwrite this file. If not, place
+ * your custom CSS modifications here.
+ */
+.view-requested-vacations .views-row{
+    margin-top:30px;
+}
+.content-moderation-entity-moderation-form .entity-moderation-form__item:nth-child(4){
+  margin: auto 0;
+}
+
+

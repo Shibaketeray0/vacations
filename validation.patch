@@ -1,0 +1,64 @@
+diff --git a/web/modules/contrib/field_validation/src/Plugin/FieldValidationRule/IntegerFieldValidationRule.php b/web/modules/contrib/field_validation/src/Plugin/FieldValidationRule/IntegerFieldValidationRule.php
+index f608c6d..3657372 100644
+--- a/web/modules/contrib/field_validation/src/Plugin/FieldValidationRule/IntegerFieldValidationRule.php
++++ b/web/modules/contrib/field_validation/src/Plugin/FieldValidationRule/IntegerFieldValidationRule.php
+@@ -20,7 +20,7 @@ class IntegerFieldValidationRule extends ConfigurableFieldValidationRuleBase {
+   /**
+    * {@inheritdoc}
+    */
+-   
++
+   public function addFieldValidationRule(FieldValidationRuleSetInterface $field_validation_rule_set) {
+ 
+     return TRUE;
+@@ -60,7 +60,7 @@ public function buildConfigurationForm(array $form, FormStateInterface $form_sta
+       '#title' => $this->t('Maximum value'),
+       '#default_value' => $this->configuration['max'],
+       '#required' => TRUE,
+-    ];	
++    ];
+     return $form;
+   }
+ 
+@@ -73,7 +73,7 @@ public function submitConfigurationForm(array &$form, FormStateInterface $form_s
+     $this->configuration['min'] = $form_state->getValue('min');
+ 	$this->configuration['max'] = $form_state->getValue('max');
+   }
+-  
++
+   public function validate($params) {
+     $value = isset($params['value']) ? $params['value'] : '';
+ 	$rule = isset($params['rule']) ? $params['rule'] : null;
+@@ -83,22 +83,26 @@ public function validate($params) {
+ 	  $settings = $rule->configuration;
+ 	}
+ 	//$settings = $this->rule->settings;
++    $user = \Drupal::routeMatch()->getParameter('user');
++    $token_service = \Drupal::token();
+     if ($value !== '' && !is_null($value)) {
+       $options = array();
+       if (isset($settings['min']) && $settings['min'] != '') {
+-	    $min = $settings['min'];
++        $settings['min'] = $token_service->replace($settings['min'], ['user' => $user]);
++	      $min = $settings['min'];
+         $options['options']['min_range'] = $min;
+       }
+       if (isset($settings['max']) && $settings['max'] != '') {
+-	    $max = $settings['max'];
++        $settings['max'] = $token_service->replace($settings['max'], ['user' => $user]);
++	      $max = $settings['max'];
+         $options['options']['max_range'] = $max;
+-      }  
+-  
++      }
++
+       if (FALSE === filter_var($value, FILTER_VALIDATE_INT, $options)) {
+         $context->addViolation($rule->getErrorMessage());
+-      }      
++      }
+ 
+-    }	
++    }
+     //return true;
+   }
+ }
