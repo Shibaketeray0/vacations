@@ -1,0 +1,37 @@
+/**
+ * If using a CSS pre-processor, tell it to overwrite this file. If not, place
+ * your custom CSS modifications here.
+ */
+.view-requested-vacations .views-row{
+  margin-top:30px;
+  background-color:#fff4f4;  
+}
+.content-moderation-entity-moderation-form .entity-moderation-form__item:nth-child(4){
+  margin: auto 0;
+}
+.smartdate--widget .allday-label{
+  float: none;
+}
+.smartdate--widget .control-label{
+  display: none !important;
+}
+.smartdate--widget .allday{
+  margin-left: 0;
+}
+.form-item-field-unpayable-vac-duration-0-duration .select-wrapper{
+  display: none;
+}
+.view-activecertificates .views-row{
+  margin-top:20px;
+  border: 1px solid black;
+}
+.view-user-operations .views-row{
+  margin-top:20px;
+  border: 1px solid black;
+
+}
+.nav > li > a{
+ padding-left:9px;
+ padding-right:9px;
+}
+
